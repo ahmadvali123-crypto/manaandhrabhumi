@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="te"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>మన ఆంధ్ర భూమి</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}body{background:#fef6ee;padding-bottom:90px}.header{background:linear-gradient(135deg,#ff6800,#ff9500);padding:18px 14px 32px;color:#fff;border-radius:0 0 22px 22px;text-align:center;position:relative}.header h1{font-size:24px}.adminBtn{position:absolute;top:10px;right:12px;background:rgba(0,0,0,.35);color:#fff;padding:6px 12px;border-radius:20px;border:1px solid #fff;font-size:11px;font-weight:800}.loginBar{background:#fff;margin:-20px 14px 0;padding:14px;border-radius:16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 10px 25px rgba(255,104,0,.2);border:2px solid #ffead2}.loginCount{background:linear-gradient(135deg,#ff6800,#ff9500);color:#fff;padding:8px 14px;border-radius:20px;font-weight:900;font-size:13px}.list{padding:8px 12px;display:grid;gap:14px}.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.07);border:1px solid #ffe4c8;position:relative}.card img,.card video{width:100%;height:220px;object-fit:cover}.c{padding:12px}.delBtn{background:#ff2a2a;color:#fff;border:0;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:900;position:absolute;top:10px;right:10px;z-index:5}.editBtn{background:#007bff;color:#fff;border:0;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:900;position:absolute;top:10px;right:80px;z-index:5}.wa{flex:1;background:#25D366;color:#fff;text-align:center;padding:12px;border-radius:11px;text-decoration:none;font-weight:800;font-size:13px}.call{flex:1;background:#111;color:#fff;text-align:center;padding:12px;border-radius:11px;text-decoration:none;font-size:13px}.actions{display:flex;gap:8px;margin-top:10px}.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #eee;display:flex;justify-content:space-around;padding:7px 0}.bi{text-align:center;font-size:10px}.plus{background:#ff6a00;color:#fff!important;width:56px;height:56px;border-radius:50%;display:flex;flex-direction:column;justify-content:center;margin-top:-26px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:end;z-index:2000}.modal.show{display:flex}.modal-box{background:#fff;width:100%;border-radius:22px 22px 0 0;padding:18px;max-height:92vh;overflow:auto}.modal-box label{font-size:12px;font-weight:800;margin-top:8px;display:block}.req{color:#ff0000;font-weight:900}.modal-box input,.modal-box select,.modal-box textarea{width:100%;padding:12px;border:1.5px solid #ddd;border-radius:10px;margin:4px 0;font-size:13px}.modal-box input.invalid,.modal-box textarea.invalid,.modal-box select.invalid{border-color:#ff0000;background:#ffeeee}.btn{width:100%;background:#ff6a00;color:#fff;border:0;padding:14px;border-radius:12px;font-weight:900;margin-top:12px}.uploadBox{border:2px dashed #ff9b4f;background:#fff7ef;padding:12px;border-radius:12px;text-align:center;margin:8px 0}.uploadBox.invalid{border-color:#ff0000;background:#ffeeee}.uploadBox input{display:none}.preview{display:flex;gap:8px;overflow:auto;margin-top:8px;flex-wrap:wrap}.preview img,.preview video{width:80px;height:80px;object-fit:cover;border-radius:10px;border:2px solid #ff7a00}.filterRow{display:flex;gap:8px;overflow:auto;padding:12px}.f{border:1.6px solid #ff7a00;color:#ff7a00;background:#fff;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap}.f.active{background:#ff6a00;color:#fff}.profileLogo{width:70px;height:70px;background:linear-gradient(135deg,#ff6800,#ff9500);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 10px;color:#fff}</style>
+</head><body>
+<div class="header"><button class="adminBtn" id="adminBtn" onclick="toggleAdmin()">🔒 Admin</button><h1>🏠 మన ఆంధ్ర భూమి</h1><div style="font-size:11px;margin-top:4px">manaandhrabhumi.in</div></div>
+<div class="loginBar"><div><div style="font-size:11px;color:#888">మన ఆంధ్ర భూమి లోకి</div><div style="font-size:13px;font-weight:900;color:#111">Login Ayyaru 👇</div></div><div class="loginCount" id="loginCount">👥 1 మంది</div></div>
+<div style="margin:10px 14px;background:#fff;padding:10px 12px;border-radius:12px;display:flex;justify-content:space-between;font-size:12px"><input id="q" onkeyup="render()" placeholder="AP lo vetakandi..." style="flex:1;border:none;outline:none"><span>🔍</span></div>
+<div class="filterRow"><span class="f active" onclick="setF('all',this)">అన్నీ</span><span class="f" onclick="setF('ప్లాట్',this)">ప్లాట్లు</span><span class="f" onclick="setF('ఇల్లు',this)">ఇళ్లు</span></div>
+<div class="list" id="list"></div>
+<div class="bottom"><div class="bi" onclick="window.scrollTo(0,0)">🏠<br>Home</div><div class="bi" onclick="document.getElementById('q').focus()">🔍<br>Search</div><div class="bi plus" onclick="openP()">+<br>Post</div><div class="bi" style="color:#ff6a00;font-weight:800">👥<br><span id="bottomLogins">1</span></div><div class="bi" onclick="openProfile()">👤<br>Profile</div></div>
+
+<!-- Post Modal with * Required -->
+<div class="modal" id="postModal" onclick="if(event.target==this)closeP()"><div class="modal-box">
+<h2 id="modalTitle">📢 Property Post <span style="font-size:11px;color:#ff0000">(* Tappanisariga Nimpandi)</span></h2>
+
+<label>Property Title <span class="req">*</span></label>
+<input id="pTitle" placeholder="Ex: 2BHK Independent House">
+
+<label>Location <span class="req">*</span></label>
+<input id="pLoc" placeholder="Ex: Vijayawada, Guntur">
+
+<label>Property Type <span class="req">*</span></label>
+<select id="pType"><option value="">-- Select Type * --</option><option>ఇల్లు</option><option>ప్లాట్</option><option>వ్యవసాయ భూమి</option><option>అద్దె ఇల్లు</option></select>
+
+<label>Details / Description <span class="req">*</span></label>
+<textarea id="pDesc" placeholder="Ex: 2BHK, 1200 sqft, East Facing, Borewell... *" rows="3"></textarea>
+
+<label>Price <span class="req">*</span></label>
+<input id="pPrice" placeholder="Ex: 45 Lakhs *">
+
+<label>Phone Number <span class="req">*</span> <span style="font-size:10px;color:#888">(Admin ke matrame kanipistadi)</span></label>
+<input id="pPhone" type="tel" placeholder="10 Digits Phone Number *" maxlength="10">
+
+<div class="uploadBox" id="uploadBox" onclick="document.getElementById('pFile').click()">
+<div style="font-size:30px">📸🎥</div>
+<b>Photo / Video <span class="req">*</span></b><br>
+<span style="font-size:11px;color:#666">Tappanisariga Photo/Video pettandi *</span><br>
+<button type="button" style="background:#ff6a00;color:#fff;border:0;padding:8px 14px;border-radius:8px;margin-top:6px">Choose Photo/Video *</button>
+<input type="file" id="pFile" multiple accept="image/,video/" onchange="handleFiles(this.files)">
+<div class="preview" id="preview"></div>
+</div>
+
+<div id="errorMsg" style="color:#ff0000;font-size:12px;font-weight:800;margin-top:8px;display:none"></div>
+
+<button class="btn" id="postBtn" onclick="addPost()">✅ Tappanisariga Check Chesi Post Cheyandi</button>
+<button style="width:100%;background:#eee;border:0;padding:12px;border-radius:10px;margin-top:8px" onclick="closeP()">Cancel</button>
+</div></div>
+
+<div class="modal" id="profileModal" onclick="if(event.target==this)closeProfile()"><div class="modal-box" style="text-align:center;border-radius:22px"><div class="profileLogo">🏠</div><h2>మన ఆంధ్ర భూమి</h2><p style="font-size:12px;color:#666">manaandhrabhumi.in</p><div style="background:linear-gradient(135deg,#fff4e8,#ffe4c8);padding:14px;border-radius:14px;margin:14px 0;border:2px solid #ff9b4f"><div style="font-size:26px;font-weight:900;color:#111" id="profileLoginBig">👥 1</div><div style="font-size:12px;color:#666">మంది Login అయ్యారు</div></div><a href="tel:9491867983" style="display:block;background:#111;color:#fff;padding:12px;border-radius:12px;text-decoration:none;font-weight:800;margin:6px 0">📞 Call Admin - 9491867983</a><a href="https://wa.me/919491867983" style="display:block;background:#25D366;color:#fff;padding:12px;border-radius:12px;text-decoration:none;font-weight:800;margin:6px 0">💬 WhatsApp Admin</a><button onclick="toggleAdmin();closeProfile()" style="width:100%;background:#ff6a00;color:#fff;border:0;padding:12px;border-radius:12px;font-weight:800;margin:6px 0" id="profileAdminBtn">🔒 Admin Login</button><button style="width:100%;background:#eee;border:0;padding:12px;border-radius:10px;margin-top:8px" onclick="closeProfile()">Close</button></div></div>
+
+<script>
+let isAdmin=false,cur='all',selectedFiles=[],editIndex=-1,ADMIN_PASS="9491";
+let props=[
+{t:"ఇండిపెండెంట్ ఇల్లు",l:"విజయవాడ, AP",d:"2BHK • 1200 sqft",p:"45 Lakhs",phone:"9491867983",views:1,i:"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700",type:"img"}
+];
+let logins=parseInt(localStorage.getItem('mana_logins')||"0");logins++;localStorage.setItem('mana_logins',logins);
+function updateLogins(){document.getElementById('loginCount').innerText=👥 ${logins} మంది;document.getElementById('bottomLogins').innerText=logins;document.getElementById('profileLoginBig').innerText=👥 ${logins};}
+function toggleAdmin(){if(!isAdmin){let pass=prompt("🔒 Admin Password:");if(pass===ADMIN_PASS){isAdmin=true;document.getElementById('adminBtn').innerText='🔓 Admin ON';document.getElementById('profileAdminBtn').innerText='🔓 Admin ON';render();}else if(pass!==null)alert("❌ Wrong! 9491");}else{isAdmin=false;document.getElementById('adminBtn').innerText='🔒 Admin Login';document.getElementById('profileAdminBtn').innerText='🔒 Admin Login';render();}}
+function openProfile(){document.getElementById('profileModal').classList.add('show');}function closeProfile(){document.getElementById('profileModal').classList.remove('show');}
+function deletePlot(idx){if(confirm('Delete cheyala?')){props.splice(idx,1);render();}}
+function editPlot(idx){editIndex=idx;let x=props[idx];document.getElementById('pTitle').value=x.t;document.getElementById('pLoc').value=x.l;document.getElementById('pDesc').value=x.d;document.getElementById('pPrice').value=x.p;document.getElementById('pPhone').value=x.phone||"";document.getElementById('modalTitle').innerText="✏️ Edit - Admin";document.getElementById('postBtn').innerText="💾 Update";openP();}
+function handleFiles(files){selectedFiles=[];document.getElementById('preview').innerHTML='';for(let f of files){let url=URL.createObjectURL(f);selectedFiles.push({url:url,type:f.type.startsWith('video')?'video':'img'});if(f.type.startsWith('video'))document.getElementById('preview').innerHTML+=<video src="${url}" controls></video>;else document.getElementById('preview').innerHTML+=<img src="${url}">;}document.getElementById('uploadBox').classList.remove('invalid');}
+function card(x,i){let adminControls=isAdmin?<button class="editBtn" onclick="editPlot(${i})">✏️ Edit</button><button class="delBtn" onclick="deletePlot(${i})">🗑️ Delete</button>:'';
+let media=x.type==='video'?<video src="${x.i}" controls></video>:<img src="${x.i}">;
+let phoneDisplay=isAdmin?<div style="background:#ffe6e6;padding:6px 8px;border-radius:8px;margin:6px 0;font-size:12px;font-weight:800;color:#c00">📞 Owner: ${x.phone}</div>:<div style="background:#e8f5e9;padding:6px 8px;border-radius:8px;margin:6px 0;font-size:11px;color:#2e7d32">🔒 Contact via Admin</div>;
+let waLink=isAdmin?https://wa.me/91${x.phone}:https://wa.me/919491867983?text=${encodeURIComponent(x.t+' '+x.l)};
+let callLink=isAdmin?tel:${x.phone}:tel:9491867983;
+return <div class="card">${adminControls}${media}<div class="c"><h3>${x.t}</h3><div style="font-size:11px;color:#777">📍 ${x.l}</div><div style="font-size:16px;color:#ff6200;font-weight:800">${x.p}</div><div style="font-size:11px;background:#fff4e8;padding:4px 8px;border-radius:6px;display:inline-block;margin:4px 0">${x.d}</div>${phoneDisplay}<div class="actions"><a class="wa" href="${waLink}">${isAdmin?'WhatsApp Owner':'WhatsApp Admin'}</a><a class="call" href="${callLink}">${isAdmin?'Call Owner':'Call Admin'}</a></div></div></div>;}
+function getF(){let q=document.getElementById('q').value.toLowerCase();return props.filter(p=>{let m=!q||(p.t+p.l+p.d).toLowerCase().includes(q);let f=cur=='all'||p.t.includes(cur)||p.d.includes(cur);return m&&f})}
+function render(){let filtered=getF();document.getElementById('list').innerHTML=filtered.map(x=>{let real=props.indexOf(x);return card(x,real)}).join('');updateLogins();}
+function setF(f,el){cur=f;document.querySelectorAll('.f').forEach(b=>b.classList.remove('active'));el.classList.add('active');render()}
+function openP(){document.getElementById('postModal').classList.add('show')}function closeP(){document.getElementById('postModal').classList.remove('show');selectedFiles=[];document.getElementById('preview').innerHTML='';editIndex=-1;document.getElementById('errorMsg').style.display='none';document.querySelectorAll('.invalid').forEach(e=>e.classList.remove('invalid'));document.getElementById('modalTitle').innerText="📢 Property Post";document.getElementById('postBtn').innerText="✅ Post";}
+
+function addPost(){
+  let t=document.getElementById('pTitle');let l=document.getElementById('pLoc');let ty=document.getElementById('pType');let d=document.getElementById('pDesc');let p=document.getElementById('pPrice');let ph=document.getElementById('pPhone');let error=document.getElementById('errorMsg');
+  let valid=true;let msg="";
+  document.querySelectorAll('.invalid').forEach(e=>e.classList.remove('invalid'));
+
+  if(t.value.trim().length<3){t.classList.add('invalid');valid=false;msg="❌ Title * - Minimum 3 letters pettandi<br>";}
+  if(l.value.trim().length<3){l.classList.add('invalid');valid=false;msg+="❌ Location * - Ekada undo pettandi<br>";}
+  if(ty.value===""){ty.classList.add('invalid');valid=false;msg+="❌ Property Type * - Select cheyandi<br>";}
+  if(d.value.trim().length<10){d.classList.add('invalid');valid=false;msg+="❌ Details * - Minimum 10 letters pettandi<br>";}
+  if(p.value.trim().length<2){p.classList.add('invalid');valid=false;msg+="❌ Price * - Price pettandi<br>";}
+  if(ph.value.trim().length!==10 || isNaN(ph.value)){ph.classList.add('invalid');valid=false;msg+="❌ Phone * - 10 Digits Number Correct ga pettandi<br>";}
+  if(editIndex<0 && selectedFiles.length===0){document.getElementById('uploadBox').classList.add('invalid');valid=false;msg+="❌ Photo/Video * - Okati tappanisariga pettandi<br>";}
+
+  if(!valid){error.innerHTML=msg;error.style.display='block';return;}
+
+  let imgObj=selectedFiles.length>0?selectedFiles[0]:{url:props[editIndex]?.i||"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700",type:"img"};
+  if(editIndex>=0){
+    props[editIndex].t=t.value;props[editIndex].l=l.value;props[editIndex].d=d.value;props[editIndex].p=p.value;props[editIndex].phone=ph.value;
+    if(selectedFiles.length>0){props[editIndex].i=imgObj.url;props[editIndex].type=imgObj.type;}
+    alert("✅ Admin Update Success!");
+  }else{
+    props.unshift({t:t.value,l:l.value,d:d.value,p:p.value,phone:ph.value,views:1,i:imgObj.url,type:imgObj.type});
+    alert("✅ Post Success! Admin verification tarvata kanipistadi!");
+  }
+  render();closeP();
+  t.value='';l.value='';ty.value='';d.value='';p.value='';ph.value='';
+}
+render();updateLogins();
+</script>
+</body></html>
